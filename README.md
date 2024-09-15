@@ -22,6 +22,8 @@ Set following environment variables in .env
 ```python
 POSTGRES_URL=postgresql+psycopg2://username:password@localhost/AuthService
 RESEND_API_KEY=re_originlapikeyhere
+JWT_SECRET_KEY=your_secret_key_here
+JWT_ALGORITHM=HS256
 ```
 ```sh
 alembic upgrade head
