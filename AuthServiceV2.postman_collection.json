@@ -1,0 +1,1127 @@
+{
+	"info": {
+		"_postman_id": "79e1d4ee-2b11-4950-9c6f-6c8a9ae5383d",
+		"name": "AuthService",
+		"description": "FastAPI Auth Service for Multi Tenant SaaS - Backend Engineer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "38301851"
+	},
+	"item": [
+		{
+			"name": "Hello World",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://127.0.0.1:8000/",
+				"description": "Hello World!"
+			},
+			"response": [
+				{
+					"name": "Hello World",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:8000/"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Sat, 14 Sep 2024 14:17:50 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "17"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Hello\": \"World\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Sign-Up",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"if (jsonData.verify_token) {\r",
+							"    pm.collectionVariables.set(\"verify_token\", jsonData.verify_token);\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "s.vickie14@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password123",
+							"type": "text"
+						},
+						{
+							"key": "org",
+							"value": "kalm",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://127.0.0.1:8000/signup",
+				"description": "POST Endpoint creates an organisation and assign the user as its owner\n\nSSO for multi organisation\n\nVerification link sent to confirm user's email\n\nVerification link expiry - 7 days"
+			},
+			"response": [
+				{
+					"name": "Sign-Up",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "s.vickie14@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "org",
+									"value": "example",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8000/signup"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Sat, 14 Sep 2024 14:18:06 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "61"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Verification link sent, Please verify the email\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Verify-Email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/verify-email?token={{verify_token}}",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"verify-email"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{verify_token}}"
+						}
+					]
+				},
+				"description": "GET Endpoint validates the user's email as legitimate"
+			},
+			"response": [
+				{
+					"name": "Verify-Email",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/verify-email?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZXhwIjoxNzI2OTI4Mjg3fQ.zDj5Sa-COzuCS4lGz2WvltoEkSxTWPPliLLxIa2KNMQ",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"verify-email"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZXhwIjoxNzI2OTI4Mjg3fQ.zDj5Sa-COzuCS4lGz2WvltoEkSxTWPPliLLxIa2KNMQ"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Sat, 14 Sep 2024 14:18:33 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "40"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"User verified successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Sign-In",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the JSON response\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"// Check if the access_token exists in the response\r",
+							"if (jsonData.access_token && jsonData.refresh_token) {\r",
+							"    // Save the access_token to a collection variable\r",
+							"    pm.collectionVariables.set(\"access_token\", jsonData.access_token);\r",
+							"    pm.collectionVariables.set(\"refresh_token\", jsonData.refresh_token);\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "s.vickie14@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password321",
+							"type": "text"
+						},
+						{
+							"key": "org",
+							"value": "example",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://127.0.0.1:8000/signin",
+				"description": "POST Endpoint which provides JWT access and refresh tokens\n\naccess expiry -> 30mins\n\nrefresh expiry -> 7 days"
+			},
+			"response": [
+				{
+					"name": "Sign-In",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "s.vickie14@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "org",
+									"value": "example",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8000/signin"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Sat, 14 Sep 2024 14:19:13 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "454"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMudmlja2llMTRAZ21haWwuY29tIiwiaWQiOjEsIm9yZyI6ImV4YW1wbGUiLCJyb2xlIjoib3duZXIiLCJleHAiOjE3MjYzMjUzNTR9.nKLPoSHETTMn9PKpATESOlIAdUtlRYdVWeYCWD7PeOA\",\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMudmlja2llMTRAZ21haWwuY29tIiwiaWQiOjEsIm9yZyI6ImV4YW1wbGUiLCJyb2xlIjoib3duZXIiLCJleHAiOjE3MjY5MjgzNTR9.jLd5R8sZI37JyTu_S6hxlU3BECz-mv5yxpGalQybR_Y\",\n    \"token_type\": \"bearer\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Refresh-Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the JSON response\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"// Check if the access_token exists in the response\r",
+							"if (jsonData.access_token && jsonData.refresh_token) {\r",
+							"    // Save the access_token to a collection variable\r",
+							"    pm.collectionVariables.set(\"access_token\", jsonData.access_token);\r",
+							"    pm.collectionVariables.set(\"refresh_token\", jsonData.refresh_token);\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "refresh_token",
+							"value": "{{refresh_token}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://127.0.0.1:8000/refresh-token",
+				"description": "POST Endpoint to refresh the access token if expired while refresh token is alive."
+			},
+			"response": [
+				{
+					"name": "Refresh-Token",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "refresh_token",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8000/refresh-token"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Sat, 14 Sep 2024 14:19:25 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "494"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Access token is still valid\",\n    \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMudmlja2llMTRAZ21haWwuY29tIiwiaWQiOjEsIm9yZyI6ImV4YW1wbGUiLCJyb2xlIjoib3duZXIiLCJleHAiOjE3MjYzMjUzNTR9.nKLPoSHETTMn9PKpATESOlIAdUtlRYdVWeYCWD7PeOA\",\n    \"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMudmlja2llMTRAZ21haWwuY29tIiwiaWQiOjEsIm9yZyI6ImV4YW1wbGUiLCJyb2xlIjoib3duZXIiLCJleHAiOjE3MjY5MjgzNTR9.jLd5R8sZI37JyTu_S6hxlU3BECz-mv5yxpGalQybR_Y\",\n    \"token_type\": \"bearer\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Reset-Password",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "s.vickie14@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "old",
+							"value": "password123",
+							"type": "text"
+						},
+						{
+							"key": "new",
+							"value": "password321",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://127.0.0.1:8000/reset-password",
+				"description": "POST Endpoint to reset the user password"
+			},
+			"response": [
+				{
+					"name": "Reset-Password",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "s.vickie14@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "old",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "new",
+									"value": "password321",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://127.0.0.1:8000/reset-password"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Sat, 14 Sep 2024 14:19:46 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "43"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Password updated successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Invite-Member",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"if (jsonData.invite_token) {\r",
+							"    pm.collectionVariables.set(\"invite_token\", jsonData.invite_token);\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"testuser@example.com\",\r\n  \"org\": \"example\",\r\n  \"role\": \"member\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://127.0.0.1:8000/invite-member",
+				"description": "POST Endpoint which sends an invitation to member\n\nRequires role of owner"
+			},
+			"response": [
+				{
+					"name": "Invite-Member",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"testuser@example.com\",\r\n  \"org\": \"example\",\r\n  \"role\": \"member\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8000/invite-member"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Sat, 14 Sep 2024 14:22:22 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "66"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Successfully invited testuser@example.com to example\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create-Member",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/create-member?token={{invite_token}}",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"create-member"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{invite_token}}"
+						}
+					]
+				},
+				"description": "GET Endpoint which creates member upon invitation\n\nGenerates random default password which is sent to user's email"
+			},
+			"response": [
+				{
+					"name": "Create-Member",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/create-member?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3R1c2VyQGV4YW1wbGUuY29tIiwib3JnIjoiZXhhbXBsZSIsImludml0ZSI6dHJ1ZSwiZXhwIjoxNzI2OTI4NTQzfQ.SvajApXBnE1D97Mli7gr9mAjBOJfL5fgx-0L7BMLy-U",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"create-member"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3R1c2VyQGV4YW1wbGUuY29tIiwib3JnIjoiZXhhbXBsZSIsImludml0ZSI6dHJ1ZSwiZXhwIjoxNzI2OTI4NTQzfQ.SvajApXBnE1D97Mli7gr9mAjBOJfL5fgx-0L7BMLy-U"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Sat, 14 Sep 2024 14:23:32 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "27"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Member joined\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update-Role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"testuser@example.com\",\r\n  \"org\": \"example\",\r\n  \"role\": \"manager\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://127.0.0.1:8000/update-role",
+				"description": "POST Endpoint to reset the update role\n\nRequires role of owner"
+			},
+			"response": [
+				{
+					"name": "Update-Role",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"testuser@example.com\",\r\n  \"org\": \"example\",\r\n  \"role\": \"manager\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8000/update-role"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Sat, 14 Sep 2024 14:23:53 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "57"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Member role updated to manager successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete-Member",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{access_token}}"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"testuser@example.com\",\r\n  \"org\": \"example\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://127.0.0.1:8000/delete-member",
+				"description": "POST Endpoint to delete member\n\nRequires role of owner"
+			},
+			"response": [
+				{
+					"name": "Delete-Member",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"testuser@example.com\",\r\n  \"org\": \"example\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:8000/delete-member"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Sat, 14 Sep 2024 14:24:07 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "75"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Member testuser@example.com removed from example successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Role-Wise-Count",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/role-wise-count",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"role-wise-count"
+					],
+					"query": [
+						{
+							"key": "created_range",
+							"value": "2024-09-14T18:00:00 to 2024-09-14T20:01:00",
+							"disabled": true
+						},
+						{
+							"key": "updated_range",
+							"value": "2024-09-14T18:00:00 to 2024-09-14T20:01:00",
+							"disabled": true
+						},
+						{
+							"key": "status",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				},
+				"description": "GET Endpoint to get statistics for role wise members count\n\nOptional Query Params"
+			},
+			"response": [
+				{
+					"name": "Role-Wise-Count",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/role-wise-count?created_range=2024-09-14T18:00:00 to 2024-09-14T20:01:00&updated_range=2024-09-14T18:00:00 to 2024-09-14T20:01:00&status=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"role-wise-count"
+							],
+							"query": [
+								{
+									"key": "created_range",
+									"value": "2024-09-14T18:00:00 to 2024-09-14T20:01:00"
+								},
+								{
+									"key": "updated_range",
+									"value": "2024-09-14T18:00:00 to 2024-09-14T20:01:00"
+								},
+								{
+									"key": "status",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Sat, 14 Sep 2024 14:24:16 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "40"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"role_name\": \"owner\",\n        \"member_count\": 1\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Org-Wise-Count",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/org-wise-count",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"org-wise-count"
+					],
+					"query": [
+						{
+							"key": "created_range",
+							"value": "2024-09-14T18:00:00 to 2024-09-14T20:01:00",
+							"disabled": true
+						},
+						{
+							"key": "updated_range",
+							"value": "2024-09-14T18:00:00 to 2024-09-14T20:01:00",
+							"disabled": true
+						},
+						{
+							"key": "status",
+							"value": "0",
+							"disabled": true
+						}
+					]
+				},
+				"description": "GET Endpoint to get statistics for organisation wise members count\n\nOptional Query Params"
+			},
+			"response": [
+				{
+					"name": "Org-Wise-Count",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/org-wise-count?created_range=2024-09-14T18:00:00 to 2024-09-14T20:01:00&updated_range=2024-09-14T18:00:00 to 2024-09-14T20:01:00&status=0",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"org-wise-count"
+							],
+							"query": [
+								{
+									"key": "created_range",
+									"value": "2024-09-14T18:00:00 to 2024-09-14T20:01:00"
+								},
+								{
+									"key": "updated_range",
+									"value": "2024-09-14T18:00:00 to 2024-09-14T20:01:00"
+								},
+								{
+									"key": "status",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Sat, 14 Sep 2024 14:24:24 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "50"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"organisation_name\": \"example\",\n        \"member_count\": 1\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Org-Role-Wise-Count",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/org-role-wise-count",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"org-role-wise-count"
+					],
+					"query": [
+						{
+							"key": "created_range",
+							"value": "2024-09-14T18:00:00 to 2024-09-14T20:01:00",
+							"disabled": true
+						},
+						{
+							"key": "updated_range",
+							"value": "2024-09-14T18:00:00 to 2024-09-14T20:01:00",
+							"disabled": true
+						},
+						{
+							"key": "org_status",
+							"value": "0",
+							"disabled": true
+						},
+						{
+							"key": "member_status",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				},
+				"description": "GET Endpoint to get statistics for organisation and role wise members count\n\nOptional Query Params"
+			},
+			"response": [
+				{
+					"name": "Org-Role-Wise-Count",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/org-role-wise-count?created_range=2024-09-14T18:00:00 to 2024-09-14T20:01:00&updated_range=2024-09-14T18:00:00 to 2024-09-14T20:01:00&org_status=0&member_status=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"org-role-wise-count"
+							],
+							"query": [
+								{
+									"key": "created_range",
+									"value": "2024-09-14T18:00:00 to 2024-09-14T20:01:00"
+								},
+								{
+									"key": "updated_range",
+									"value": "2024-09-14T18:00:00 to 2024-09-14T20:01:00"
+								},
+								{
+									"key": "org_status",
+									"value": "0"
+								},
+								{
+									"key": "member_status",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Sat, 14 Sep 2024 14:24:31 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "70"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"organisation_name\": \"example\",\n        \"role_name\": \"owner\",\n        \"member_count\": 1\n    }\n]"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "access_token",
+			"value": ""
+		},
+		{
+			"key": "refresh_token",
+			"value": ""
+		},
+		{
+			"key": "verify_token",
+			"value": ""
+		},
+		{
+			"key": "invite_token",
+			"value": ""
+		}
+	]
+}
