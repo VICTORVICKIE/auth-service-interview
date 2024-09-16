@@ -1,34 +1,17 @@
-from datetime import datetime, timezone
 from sqlalchemy import (
+    Boolean,
     Column,
     DateTime,
-    Integer,
-    String,
-    Boolean,
     ForeignKey,
+    Integer,
     JSON,
-    TIMESTAMP,
+    String,
     func,
-    text,
 )
-from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
 
 Base = declarative_base()
-
-
-class Test(Base):
-    __tablename__ = "test"
-
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String, nullable=False)
-    created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
-    updated_at = Column(
-        DateTime(timezone=True),
-        nullable=False,
-        server_default=func.now(),
-        server_onupdate=func.now(),
-    )
 
 
 class Organisation(Base):
@@ -38,6 +21,7 @@ class Organisation(Base):
     name = Column(String, nullable=False)
     status = Column(Integer, default=0, nullable=False)
     personal = Column(Boolean, default=False, nullable=True)
+    settings = Column(JSON, default={}, nullable=True)
     created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
     updated_at = Column(
         DateTime(timezone=True),
@@ -57,6 +41,7 @@ class User(Base):
     email = Column(String, unique=True, nullable=False)
     password = Column(String, nullable=False)
     profile = Column(JSON, default={}, nullable=False)
+    settings = Column(JSON, default={}, nullable=True)
     status = Column(Integer, default=0, nullable=False)
     created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
     updated_at = Column(
@@ -100,6 +85,7 @@ class Member(Base):
         Integer, ForeignKey("role.id", ondelete="CASCADE"), nullable=False
     )
     status = Column(Integer, nullable=False, default=0)
+    settings = Column(JSON, default={}, nullable=True)
     created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
     updated_at = Column(
         DateTime(timezone=True),
